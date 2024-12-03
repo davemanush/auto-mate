@@ -1,6 +1,6 @@
 import pyautogui
 
-from app.model.data.data_types import DataType
+from app.model.data.field.data_types import DataType
 from app.model.enums import MenuType
 from app.model.view_state import ViewState, ViewMode
 from app.views.button_interface import ButtonInterface
@@ -14,8 +14,8 @@ class CapturePositionButton(ButtonInterface):
 
     def action(self):
         x, y = pyautogui.position()
-        self.view_state.virtual_data.get_data_node(DataType.X).wrapper = str(x)
-        self.view_state.virtual_data.get_data_node(DataType.Y).wrapper = str(y)
+        self.view_state.data_node.get_data_node(DataType.X).virtual = str(x)
+        self.view_state.data_node.get_data_node(DataType.Y).virtual = str(y)
 
     def condition(self):
         return self.view_state.active and self.view_state.view_mode in self.view_modes

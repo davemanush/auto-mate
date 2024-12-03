@@ -3,7 +3,7 @@ from colorama import Back, Fore, Style
 
 from app.model.enums import ConfirmOption
 def render_confirm_options_list(view_state):
-    confirm_options: List[ConfirmOption] = view_state.wrapper
+    confirm_options: List[ConfirmOption] = view_state.virtual
     for index, option in enumerate(confirm_options):
         bg_color = ''
         fr_color = ''

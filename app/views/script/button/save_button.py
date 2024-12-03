@@ -14,7 +14,7 @@ class SaveButton(ButtonInterface):
 
     def condition(self):
         return  self.view_state.active and self.view_state.view_mode in self.view_modes \
-                and any(item.is_edited() for item in self.view_state.virtual_data.nodes)
+                and any(item.is_edited() for item in self.view_state.data_node.nodes)
 
     def show(self):
         return self.get_type().update_text("script")

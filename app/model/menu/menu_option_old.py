@@ -3,7 +3,7 @@ from typing import List
 from colorama import Style, Back, Fore
 
 from app.model.view_state import ViewMode
-from app.model.framework.editable import Editable
+from app.model.framework.modifier.editable import Editable
 from app.service.broadcast_service import EventType
 
 

@@ -38,7 +38,7 @@ class MainView(ViewState):
 
     def render(self):
         self._init_max_lengths('script', headers_to_fields=self.headers_to_fields)
-        max_lengths = self._calculate_max_lengths(self.virtual_data.nodes)
+        max_lengths = self._calculate_max_lengths(self.data_node.nodes)
         self._render()
         print(Fore.BLACK + Back.WHITE + "    | Script details".ljust(149) + Style.RESET_ALL, end='\n')
         # TODO refactor this later to be dynamic and rely on the settings which field was enabled and in which order
@@ -50,7 +50,7 @@ class MainView(ViewState):
             f"{"Last updated".ljust(max_lengths['script']['last_update_datetime'])} | "
             f"{"Last run date".ljust(max_lengths['script']['last_run_datetime'])} | ",
             end='\n')
-        [item.render(max_lengths['script']) for item in self.virtual_data.nodes]
+        [item.render(max_lengths['script']) for item in self.data_node.nodes]
 
     def __define_buttons(self) -> List[MenuOption]:
         return [

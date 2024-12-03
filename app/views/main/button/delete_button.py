@@ -10,11 +10,11 @@ class DeleteButton(ButtonInterface):
         self.view_modes = [ViewMode.EDIT]
 
     def action(self):
-        self.view_state.virtual_data.get_selected().delete()
+        self.view_state.data_node.get_selected().delete()
 
     def condition(self):
         return self.view_state.active and self.view_state.view_mode in self.view_modes \
-            and self.view_state.virtual_data.get_selected().is_deleted()
+            and self.view_state.data_node.get_selected().is_deleted()
 
     def show(self):
         return self.get_type().update_text("script")

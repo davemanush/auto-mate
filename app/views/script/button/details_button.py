@@ -1,4 +1,4 @@
-from app.model.composite_node import CompositeNode
+from app.model.node import Node
 from app.model.enums import MenuType
 from app.model.view_state import ViewState, ViewType, ViewMode
 from app.views.button_interface import ButtonInterface
@@ -17,14 +17,14 @@ class DetailsButton(ButtonInterface):
             parent=self.view_state,
             view_type=ViewType.STEP_DETAILS,
             view_mode=self.view_state.view_mode,
-            virtual_data=self.view_state.virtual_data.get_selected()
+            source=self.view_state.data_node.get_selected()
         )
         details_view_state.activate_view()
         self.view_state.child = details_view_state
 
     def condition(self):
         return self.view_state.active and self.view_state.view_mode in self.view_modes \
-            and isinstance(self.view_state.virtual_data.get_selected(), CompositeNode)
+            and isinstance(self.view_state.data_node.get_selected(), Node)
 
     def show(self):
         if self.view_state.view_mode is ViewMode.VIEW:

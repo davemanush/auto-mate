@@ -8,7 +8,6 @@ class ViewType(Enum):
     RUN = 4
     CONFIRM_PAGE = 5
 
-
 class ViewMode(Enum):
     VIEW = 1
     EDIT = 2

@@ -1,5 +1,4 @@
-from app.model.data_node import DataNode
-from app.model.composite_node import CompositeNode
+from app.model.node import Node
 from app.model.enums import MenuType
 from app.model.view_state import ViewState, ViewMode
 from app.views.button_interface import ButtonInterface
@@ -18,8 +17,8 @@ class DiscardButton(ButtonInterface):
             view_state.deactivate()
             view_state.parent.child = None
             return
-        for item in self.view_state.virtual_data.nodes:
-            if isinstance(item, DataNode) and item.is_edited():
+        for item in self.view_state.data_node.nodes:
+            if isinstance(item, Node) and item.is_edited():
                 item.discard_change()
                 item.clear_error()
         view_state.parent.activate()
@@ -30,7 +29,7 @@ class DiscardButton(ButtonInterface):
 
         return  self.view_state.active and \
             (self.view_state.view_mode is ViewMode.EDIT
-                and any([isinstance(item, DataNode) and item.is_edited() for item in self.view_state.virtual_data.nodes])) \
+             and any([isinstance(item, Node) and item.is_edited() for item in self.view_state.data_node.nodes])) \
                 or self.view_state.view_mode is ViewMode.NEW
 
 

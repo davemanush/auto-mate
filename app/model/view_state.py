@@ -3,14 +3,15 @@ from typing import List, Union
 from colorama import Back, Fore, Style
 from dependency_injector.wiring import inject
 
-from app.model.data_node import DataNode
-from app.model.composite_node import CompositeNode
+from app.model.node import Node
+from app.model.framework.enhancement import Broadcastable
 from app.model.framework.enums import ViewType, ViewMode
-from app.model.framework.renderable import Renderable
+from app.model.framework.enhancement.renderable import Renderable
+from app.model.framework.modifier.interactable import Interactable
 from app.model.step import Step
 from app.service.database_service import DatabaseService
 
-class ViewState(Renderable):
+class ViewState(Renderable, Broadcastable, Interactable):
     max_lengths = {
             'script': {
                 'entry_id': 0,
@@ -43,36 +44,37 @@ class ViewState(Renderable):
             menu=None,
             parent=None,
             child=None,
-            virtual_data=None):
-        super().__init__()
+            source=None):
+        Renderable.__init__(self)
+        Broadcastable.__init__(self)
+        Interactable.__init__(self, parent=parent)
         self.database_service = DatabaseService()
         self.view_type = view_type
         self.view_mode = view_mode
-        self.parent = parent
         self.menu = menu
-        self.data = virtual_data.get_data() if virtual_data and virtual_data.get_data() is not None else self.database_service.get_all_scripts()
-        self.virtual_data = virtual_data if virtual_data is not None else CompositeNode(
+        self.data = source.get_data() if source and source.get_data() is not None else self.database_service.get_all_scripts()
+        self.data_node = source if source is not None else Node(
             parent=self,
             owner=self,
-            entry=self.data
+            source=self.data
         )
         self.update_entry_owner()
         self.activate()
-        self.virtual_data.activate()
+        self.data_node.activate()
         self.child = child
 
     def activate_view(self):
         self.activate()
         self.menu.activate()
-        self.virtual_data.activate_node()
+        self.data_node.activate_node()
 
     def deactivate_view(self):
         self.deactivate()
         self.menu.deactivate()
-        self.virtual_data.deactivate()
+        self.data_node.deactivate()
 
     def update_entry_owner(self):
-        self.virtual_data.update_branch_owner(self)
+        self.data_node.update_node_owner(self)
 
     def _render(self):
         self._render_main_title()
@@ -92,12 +94,12 @@ class ViewState(Renderable):
                 self.max_lengths['step'][field] = len(header)
         return self.max_lengths
 
-    def _calculate_max_lengths(self, data_list: List[Union[DataNode, CompositeNode]]):
-        for item in filter(lambda entry: isinstance(entry, DataNode | CompositeNode), data_list):
-            if isinstance(item, CompositeNode):
-                for entry in filter(lambda x: isinstance(x, DataNode), item.nodes):
+    def _calculate_max_lengths(self, data_list: List[Node]):
+        for item in filter(lambda entry: isinstance(entry, Node), data_list):
+            if isinstance(item, Node):
+                for entry in filter(lambda x: isinstance(x,Node), item.nodes):
                     self.__add_data_wrapper_lengths(entry, self.max_lengths)
-            if isinstance(item, DataNode):
+            if isinstance(item, Node):
                 self.__add_data_wrapper_lengths(item, self.max_lengths)
         self.max_lengths['script']['sum'] = sum(self.max_lengths['script'].values()) - self.max_lengths['script']['sum']
         self.max_lengths['step']['sum'] = sum(self.max_lengths['step'].values()) - self.max_lengths['step']['sum']
@@ -105,7 +107,7 @@ class ViewState(Renderable):
 
     def __add_data_wrapper_lengths(self, item, max_lengths):
             length_type = 'step' if item.clazz == Step else 'script'
-            max_lengths[length_type][item.data_type.get_data().get_name()] = max(max_lengths[length_type][item.data_type.get_data().get_name()], len(str(item.wrapper)))
+            max_lengths[length_type][item.data_type.get_data().get_name()] = max(max_lengths[length_type][item.data_type.get_data().get_name()], len(str(item.virtual)))
 
 
 

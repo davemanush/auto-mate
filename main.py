@@ -5,7 +5,7 @@ from app.views.main import MainView
 
 def start_app():
     container = DependencyContainer()
-    container.wire(modules=["__main__", "app.model.framework.broadcastable"])
+    container.wire(modules=["__main__", "app.model.framework.enhancement.broadcastable"])
     MainView()
     InteractionService()
 

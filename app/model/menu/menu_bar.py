@@ -1,18 +1,19 @@
 from typing import List
 
 from app.model.enums import CursorDirectionType
-from app.model.view_state import ViewMode
-from app.model.framework.editable import Editable
+from app.model.framework.enhancement import Broadcastable
+from app.model.framework.modifier.interactable import Interactable
 from app.model.menu.menu_option import MenuOption
 from app.service.broadcast_service import EventType
 
 
-class MenuBar(Editable):
+class MenuBar(Interactable, Broadcastable):
     def __init__(
             self,
             parent,
             menu_list: List[MenuOption]):
-        super().__init__()
+        Interactable.__init__(self)
+        Broadcastable.__init__(self)
         self.menu_list: List[MenuOption] = menu_list
         self.parent = parent
         self._get_menu_options()[0].select()

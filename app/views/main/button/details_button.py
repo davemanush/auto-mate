@@ -16,7 +16,7 @@ class DetailsButton(ButtonInterface):
             parent=self.view_state,
             view_type=ViewType.SCRIPT_DETAILS,
             view_mode=self.view_state.view_mode,
-            virtual_data=self.view_state.virtual_data.get_selected(),
+            source=self.view_state.data_node.get_selected(),
         )
         details_view_state.activate_view()
         self.view_state.child = details_view_state

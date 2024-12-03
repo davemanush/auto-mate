@@ -1,10 +1,10 @@
-import os
 from datetime import datetime
 
 from pynput import keyboard
-from app.model.data_node import DataUpdate, DataUpdateType
 from app.model.enums import CursorDirectionType
-from app.model.framework.broadcastable import Broadcastable
+from app.model.framework.enhancement.broadcastable import Broadcastable
+from app.model.framework.enhancement.nodeable import DataUpdate
+from app.model.framework.enums import DataUpdateType
 from app.service.broadcast_service import EventType
 
 class InteractionService(Broadcastable):

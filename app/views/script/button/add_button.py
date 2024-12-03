@@ -1,4 +1,4 @@
-from app.model.composite_node import CompositeNode
+from app.model.node import Node
 from app.model.enums import MenuType
 from app.model.step import Step
 from app.model.view_state import ViewState, ViewType, ViewMode
@@ -14,16 +14,16 @@ class AddButton(ButtonInterface):
 
     def action(self):
         self.view_state.deactivate()
-        self.view_state.virtual_data.get_selected().deactivate()
+        self.view_state.data_node.get_selected().deactivate()
         details_view_state = StepView(
             parent=self.view_state,
             view_type=ViewType.STEP_DETAILS,
             view_mode=ViewMode.NEW,
-            virtual_data=CompositeNode(
-                parent=self.view_state.virtual_data.get_selected(),
+            source=Node(
+                parent=self.view_state.data_node.get_selected(),
                 owner=self.view_state,
                 entry=Step(
-                    parent_id=self.view_state.virtual_data.get_selected().parent.id,
+                    parent_id=self.view_state.data_node.get_selected().parent.id,
                     order=0
                 )
             )

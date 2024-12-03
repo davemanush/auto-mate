@@ -1,4 +1,4 @@
-from app.model.composite_node import CompositeNode
+from app.model.node import Node
 from app.model.enums import MenuType
 from app.model.view_state import ViewState, ViewMode
 from app.views.button_interface import ButtonInterface
@@ -11,12 +11,12 @@ class DeleteButton(ButtonInterface):
         self.view_modes = [ViewMode.EDIT]
 
     def action(self):
-        self.view_state.virtual_data.get_selected().delete()
+        self.view_state.data_node.get_selected().delete()
 
     def condition(self):
         return self.view_state.active and self.view_state.view_mode in self.view_modes \
-            and isinstance(self.view_state.virtual_data.get_selected(), CompositeNode) \
-            and not self.view_state.virtual_data.get_selected().is_deleted()
+            and isinstance(self.view_state.data_node.get_selected(), Node) \
+            and not self.view_state.data_node.get_selected().is_deleted()
 
     def show(self):
         return self.get_type().update_text("step")

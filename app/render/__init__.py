@@ -3,7 +3,7 @@ from app.render.common_view import render_confirm_options_list
 
 def render_step_details_screen(view_state):
     parent: Script = view_state.parent.active_data
-    data: Step = view_state.wrapper
+    data: Step = view_state.virtual
     print('', end='\n')
     print(f'>>> Script  - {parent.name}', end='\n')
     print(f'>> Step     - {data.name}', end='\n')

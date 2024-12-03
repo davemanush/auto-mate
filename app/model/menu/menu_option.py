@@ -1,17 +1,16 @@
-from sys import implementation
-from typing import List
-
 from colorama import Style, Back, Fore
 
-from app.model.view_state import ViewMode
-from app.model.framework.editable import Editable
+from app.model.framework.enhancement import Broadcastable
+from app.model.framework.modifier.editable import Editable
+from app.model.framework.modifier.selectable import Selectable
 from app.service.broadcast_service import EventType
 from app.views.button_interface import ButtonInterface
 
 
-class MenuOption(Editable):
+class MenuOption(Selectable, Broadcastable):
     def __init__(self, object_implementation: ButtonInterface):
-        super().__init__()
+        Selectable.__init__(self)
+        Broadcastable.__init__(self)
         self.show = object_implementation.show
         self.action = object_implementation.action
         self.condition = object_implementation.condition

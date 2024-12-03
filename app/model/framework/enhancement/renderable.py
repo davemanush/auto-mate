@@ -1,24 +1,17 @@
 from colorama import Back, Fore, Style
-from dependency_injector.wiring import Provide, inject
-
-from app.model.framework.activatable import Activatable
-from app.model.framework.broadcastable import Broadcastable
-from app.model.framework.creatable import Creatable
-from app.model.framework.deletable import Deletable
+from dependency_injector.wiring import inject, Provide
 from app.model.framework.enums import ViewType, ViewMode
-from app.model.framework.errorable import Errorable
-from app.model.framework.selectable import Selectable
+from app.service import DependencyContainer
+from app.service.render_service import RenderService
 
 
-class Renderable(Broadcastable, Activatable, Selectable, Deletable, Creatable, Errorable):
+class Renderable:
     @inject
-    def __init__(self):
-        Activatable.__init__(self)
-        Selectable.__init__(self)
-        Deletable.__init__(self)
-        Broadcastable.__init__(self)
-        Creatable.__init__(self)
-        Errorable.__init__(self)
+    def __init__(self, render_service: RenderService = Provide[DependencyContainer.render_service]):
+        self.render_service = render_service
+
+    def render(self):
+        self.render_service.render()
 
     def _print_tabs(self, amount: int):
         tabs = ''
@@ -46,9 +39,9 @@ class Renderable(Broadcastable, Activatable, Selectable, Deletable, Creatable, E
         critical_color = Back.LIGHTRED_EX + Fore.BLACK
         warning_color = Back.LIGHTYELLOW_EX + Fore.BLACK
         warnings = []
-        if item.view_type == ViewType.APP and item.view_mode is ViewMode.VIEW and item.virtual_data.any_child_edited():
+        if item.view_type == ViewType.APP and item.view_mode is ViewMode.VIEW and item.data_node.any_child_edited():
             warnings.append(critical_color + self._center_text('Unsaved changes detected - Script run disabled', width=149) + Style.RESET_ALL)
-        if item.view_type == ViewType.SCRIPT_DETAILS and item.view_mode is ViewMode.VIEW and item.virtual_data.any_child_edited():
+        if item.view_type == ViewType.SCRIPT_DETAILS and item.view_mode is ViewMode.VIEW and item.data_node.any_child_edited():
             warnings.append(warning_color + self._center_text('Unsaved changes detected', width=149) + Style.RESET_ALL)
         for warning in warnings:
             print(warning, end='\n')
@@ -63,7 +56,7 @@ class Renderable(Broadcastable, Activatable, Selectable, Deletable, Creatable, E
         if item.is_created():
             return Back.BLUE + Fore.BLACK + '<new>' + Style.RESET_ALL
         if (item.nodes and item.any_child_edited()) \
-            or (not item.nodes and item.wrapper and item.is_edited()):
+            or (not item.nodes and item.virtual and item.is_edited()):
             return Back.YELLOW + Fore.BLACK + '<edited>' + Style.RESET_ALL
 
 

@@ -2,8 +2,7 @@ from typing import List
 
 from colorama import Fore, Back, Style
 
-from app.model.data_node import DataNode
-from app.model.composite_node import CompositeNode
+from app.model.node import Node
 from app.model.menu.menu_bar import MenuBar
 from app.model.menu.menu_option import MenuOption
 from app.model.view_state import ViewState, ViewType, ViewMode
@@ -31,13 +30,13 @@ class ScriptView(ViewState):
                  view_mode: ViewMode,
                  parent=None,
                  child=None,
-                 virtual_data=None):
+                 source=None):
         super().__init__(
             view_type=view_type,
             view_mode=view_mode,
             parent=parent,
             child=child,
-            virtual_data=virtual_data)
+            source=source)
         self.menu = MenuBar(menu_list=self.__define_buttons(), parent=self)
         self._register_listener(EventType.RENDER, self)
         self.broadcaster.broadcast(EventType.RENDER)
@@ -49,11 +48,11 @@ class ScriptView(ViewState):
 
     def render(self):
         self._render()
-        max_lengths = self._calculate_max_lengths(self.virtual_data.nodes)
+        max_lengths = self._calculate_max_lengths(self.data_node.nodes)
         script_table_left_patting = int(len(max(self.headers_to_fields_steps.keys(), key=len)))
         print(f'{Fore.BLACK + Back.WHITE + "    | Script details".ljust(150) + Style.RESET_ALL}', end='\n')
         print(Fore.BLACK + Back.WHITE + "    " + Style.RESET_ALL + "| Attribute name ".ljust(script_table_left_patting) + "| Value".ljust(int(max_lengths['script']['sum']/2)) +" |", end='\n')
-        [item.render(script_table_left_patting, max_lengths['script']['sum']-5) for item in self.virtual_data.nodes if isinstance(item, DataNode)]
+        [item.render(script_table_left_patting, max_lengths['script']['sum']-5) for item in self.data_node.nodes if isinstance(item, DataNode)]
         print('', end='\n')
         print(f'{Fore.BLACK + Back.WHITE + "    | Steps".ljust(150) + Style.RESET_ALL}', end='\n')
         print(
@@ -62,7 +61,7 @@ class ScriptView(ViewState):
             f"{"Step Name".ljust(max_lengths['step']['name'])} | "
             f"{"Last updated".ljust(max_lengths['step']['last_update_datetime'])} | ",
             end='\n')
-        [item.render(max_lengths[item.clazz.__name__.lower()]) for item in self.virtual_data.nodes if isinstance(item, CompositeNode)]
+        [item.render(max_lengths[item.clazz.__name__.lower()]) for item in self.data_node.nodes if isinstance(item, Node)]
 
     def __define_buttons(self) -> List[MenuOption]:
         return [
