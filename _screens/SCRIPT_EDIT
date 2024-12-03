@@ -1,0 +1,27 @@
+FF Auto Mate - Crafting support tool
+
+Save | Add step | View Details | Delete | Quit without save
+-------------------------------------------------------------------------------------------------------------
+>> Editing script
+
+>> Name: <Script name>
+>> Steps:
+>> 1 - Start synthesis  | X: 234 - Y: 3456  | Wait BEFORE: 22s <
+>> 2 - Start Macro 1    | X: 234 - Y: 3456  | Wait BEFORE: 22s
+>> 3 - Start Macro 2    | X: 234 - Y: 3456  | Wait BEFORE: 22s
+>> 4 - Start Macro 3    | X: 234 - Y: 3456  | Wait BEFORE: 22s
+
+#################################################
+
+FF Auto Mate - Crafting support tool
+
+Save | Add step | Edit | Delete | Quit without save
+-------------------------------------------------------------------------------------------------------------
+>> Editing script
+
+>> Name: <Script name> <
+>> Steps:
+>> 1 - Start synthesis  | X: 234 - Y: 3456  | Wait BEFORE: 22s
+>> 2 - Start Macro 1    | X: 234 - Y: 3456  | Wait BEFORE: 22s
+>> 3 - Start Macro 2    | X: 234 - Y: 3456  | Wait BEFORE: 22s
+>> 4 - Start Macro 3    | X: 234 - Y: 3456  | Wait BEFORE: 22s

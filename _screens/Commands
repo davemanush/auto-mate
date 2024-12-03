@@ -1,0 +1,12 @@
+Add new step: b
+Start automation: a
+Open script: o
+Edit coordinates: c
+Select script/step: e
+Quit script view/step edit: q
+Remove step/script: r -> Are you sure: y/n
+Save script: s
+Stop script: ctrl+c
+
+Navigate up: Up arrow
+Navigate down: down arrow

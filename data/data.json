@@ -1,0 +1,64 @@
+[
+    {
+        "scriptId": "6ff7d804-b916-46ab-bc9c-0129e3416dc5",
+        "name": "Test Script 1",
+        "order" : 1,
+        "steps": [
+            {
+                "stepId": "4c6b807c-622c-4ed3-9a29-4c45003eb100",
+                "name": "Press Synthesis",
+                "xCoordinate": 666,
+                "yCoordinate": 666,
+                "order": 1,
+                "delay": 22,
+                "delayType": "BEFORE",
+                "createdDateTime": "2024-11-25 18:56:26.678881",
+                "lastUpdateDateTime": "2024-11-25 18:56:26.678882"
+            },
+            {
+                "stepId": "09715aeb-4ecc-4249-a24d-c57d30eaf559",
+                "name": "Press Macro 1",
+                "xCoordinate": "c",
+                "yCoordinate": "d",
+                "order": 3,
+                "delay": 3,
+                "delayType": "BEFORE",
+                "createdDateTime": "2024-11-25 18:56:26.678885",
+                "lastUpdateDateTime": "2024-11-25 18:56:26.678886"
+            }
+        ],
+        "createdDateTime": "2024-11-25 18:56:26.678888"
+    },
+    {
+        "scriptId": "008f8039-4f7c-4459-bb03-69a7bbc73e68",
+        "name": "Test Script 2",
+        "order": 2,
+        "steps": [
+            {
+                "stepId": "972ccce8-a4b9-4e2d-bc0f-163c5b5a97f9",
+                "name": "Press Synthesis",
+                "xCoordinate": 777,
+                "yCoordinate": 777,
+                "order": 1,
+                "delay": 22,
+                "delayType": "BEFORE",
+                "createdDateTime": "2024-11-25 18:56:26.678881",
+                "lastUpdateDateTime": "2024-11-25 18:56:26.678882"
+            },
+            {
+                "stepId": "efb4a3c7-868c-468e-bfe8-41af8a11db93",
+                "name": "Press Macro 1",
+                "xCoordinate": 777,
+                "yCoordinate": 777,
+                "order": 3,
+                "delay": 3,
+                "delayType": "BEFORE",
+                "createdDateTime": "2024-11-25 18:56:26.678885",
+                "lastUpdateDateTime": "2024-11-25 18:56:26.678886"
+            }
+        ],
+        "createdDateTime": "2024-11-25 18:56:26.678888",
+        "last_run_datetime": "2024-11-25 18:56:26.678888",
+        "lastUpdateDateTime": "2024-11-25 18:56:26.678888"
+    }
+]

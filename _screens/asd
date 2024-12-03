@@ -1,0 +1,41 @@
+MAIN WINDOW - VIEW
+    - START
+    - SCRIPT DETAILS
+    - EDIT MODE - OPENS MAIN WINDOW - EDIT
+    - CREATE NEW - OPENS SCRIPT DETAILS - NEW
+    - SETTINGS
+    - QUIT
+
+MAIN WINDOW - EDIT
+    - SAVE - SAVES SCRIPT
+    - SCRIPT DETAILS -  OPENS SCRIPT DETAILS - EDIT
+    - MOVE UP - Moves script entry in list up
+    - MOVE DOWN - Moves script entry in list down
+    - DISCARD CHANGES - Discards all changes
+    - DELETE SCRIPT - REMOVES SCRIPT - Sends delete signal to parent
+
+
+SCRIPT DETAILS - VIEW: cursor can only be on steps in view mode
+    -   BACK
+    -   DETAILS
+
+SCRIPT DETAILS - EDIT:
+    ON script data:
+        -   SAVE
+        -   ADD STEP
+        -   BACK
+
+    ON Step data
+    -   DISCARD
+    -   SAVE
+    -   ADD STEP
+    -   EDIT STEP
+    -   DELETE STEP
+
+STEP DETAILS - VIEW: cursor can only be on steps in view mode
+    -   BACK
+
+STEP DETAILS - EDIT:
+    -   DISCARD
+    -   SAVE
+    -   CAPTURE POSITION

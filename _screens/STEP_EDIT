@@ -1,0 +1,15 @@
+FF Auto Mate - Crafting support tool
+
+Save | Edit | Delete | Quit without saving
+-------------------------------------------------------------------------------------------------------------
+>> Editing step
+
+>> Name             : Start Synthesis
+>> X coordinate     : 3452
+>> Y coordinate     : 1234
+>> Wait time        : 22s
+>> Wait type        : BEFORE
+
+
+>>> Script ID                               |
+>>> 6ff7d804-b916-46ab-bc9c-0129e3416dc5    |
