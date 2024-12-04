@@ -16,7 +16,7 @@ class MenuBar(Interactable, Broadcastable):
         Broadcastable.__init__(self)
         self.menu_list: List[MenuOption] = menu_list
         self.parent = parent
-        self._get_menu_options()[0].select()
+        self.get_menu_options()[0].select()
         self._register_listener(EventType.MENU_NAVIGATION, self)
         self._register_menu_to_listener()
         self.activate()
@@ -32,8 +32,8 @@ class MenuBar(Interactable, Broadcastable):
 
     def update_active_menu(self, direction: CursorDirectionType):
         active_index = 0
-        menu_options = self._get_menu_options()
-        active_menu: MenuOption = self._get_active_menu()
+        menu_options = self.get_menu_options()
+        active_menu: MenuOption = self.get_active_menu()
 
         if menu_options.count(active_menu) != 0:
                 active_index = menu_options.index(active_menu)
@@ -49,16 +49,13 @@ class MenuBar(Interactable, Broadcastable):
         self._broadcast(EventType.RENDER)
         return self
 
-    def _get_active_menu(self):
+    def get_active_menu(self):
         menu_list: List[MenuOption] = self.menu_list
         return list(filter(lambda item: item.selected, menu_list))[0]
 
-    def _get_menu_options(self):
+    def get_menu_options(self):
         menu_list: List[MenuOption] = self.menu_list
         filtered_list = list(filter(lambda item: item.condition(), menu_list))
         return sorted(filtered_list, key=lambda menu: menu.get_data.order)
 
-    def render(self):
-        for menu in self._get_menu_options(): # TEH SHOW_CONDITION FILES AND FUNCTIONS DECIDE IF THE MENU IS SHOWN OR NOT!
-            menu.render()
-        print('', end='\n') # next line! important to have it here
+ # next line! important to have it here

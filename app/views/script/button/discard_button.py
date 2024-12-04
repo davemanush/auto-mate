@@ -1,7 +1,7 @@
 from app.model.node import Node
 from app.model.enums import MenuType
 from app.model.view_state import ViewState, ViewMode
-from app.views.button_interface import ButtonInterface
+from app.views.common.button_interface import ButtonInterface
 
 
 class DiscardButton(ButtonInterface):
@@ -20,7 +20,7 @@ class DiscardButton(ButtonInterface):
                     item.restore()
                 elif item.is_new():
                     items_to_delete.append(item)
-                elif item.any_child_edited():
+                elif item.is_edited():
                     for child in item.nodes:
                         if child.is_edited():
                             child.discard_change()

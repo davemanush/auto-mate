@@ -39,6 +39,8 @@ class ScriptView(ViewState):
             source=source)
         self.menu = MenuBar(menu_list=self.__define_buttons(), parent=self)
         self._register_listener(EventType.RENDER, self)
+        self.activate_view()
+        self.data_node.nodes[0].select()
         self.broadcaster.broadcast(EventType.RENDER)
 
     def handle_event(self):
@@ -47,21 +49,7 @@ class ScriptView(ViewState):
             self.render()
 
     def render(self):
-        self._render()
-        max_lengths = self._calculate_max_lengths(self.data_node.nodes)
-        script_table_left_patting = int(len(max(self.headers_to_fields_steps.keys(), key=len)))
-        print(f'{Fore.BLACK + Back.WHITE + "    | Script details".ljust(150) + Style.RESET_ALL}', end='\n')
-        print(Fore.BLACK + Back.WHITE + "    " + Style.RESET_ALL + "| Attribute name ".ljust(script_table_left_patting) + "| Value".ljust(int(max_lengths['script']['sum']/2)) +" |", end='\n')
-        [item.render(script_table_left_patting, max_lengths['script']['sum']-5) for item in self.data_node.nodes if isinstance(item, DataNode)]
-        print('', end='\n')
-        print(f'{Fore.BLACK + Back.WHITE + "    | Steps".ljust(150) + Style.RESET_ALL}', end='\n')
-        print(
-            f"{Fore.BLACK + Back.WHITE}   {Style.RESET_ALL} | "
-            f"{"Step ID".ljust(max_lengths['step']['entry_id'])} | "
-            f"{"Step Name".ljust(max_lengths['step']['name'])} | "
-            f"{"Last updated".ljust(max_lengths['step']['last_update_datetime'])} | ",
-            end='\n')
-        [item.render(max_lengths[item.clazz.__name__.lower()]) for item in self.data_node.nodes if isinstance(item, Node)]
+        self.render_service.render(self)
 
     def __define_buttons(self) -> List[MenuOption]:
         return [

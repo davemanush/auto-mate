@@ -1,10 +1,7 @@
-from colorama import Style, Back, Fore
-
 from app.model.framework.enhancement import Broadcastable
-from app.model.framework.modifier.editable import Editable
 from app.model.framework.modifier.selectable import Selectable
 from app.service.broadcast_service import EventType
-from app.views.button_interface import ButtonInterface
+from app.views.common.button_interface import ButtonInterface
 
 
 class MenuOption(Selectable, Broadcastable):
@@ -26,14 +23,3 @@ class MenuOption(Selectable, Broadcastable):
             self.action()
             if self.get_data.rerender():
                 self._broadcast(EventType.RENDER)
-
-    def render(self):
-        separator = '|'
-        color = ''
-        color_override = ''
-        reset_color = Style.RESET_ALL
-        if self.get_data.style_override:
-            color_override = self.get_data.style_override
-        if self.selected:
-            color = Back.LIGHTWHITE_EX + Fore.BLACK
-        print(f"{color} {color_override}{self.show()}{reset_color}{color} {reset_color}{separator}", end='')

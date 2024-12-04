@@ -1,6 +1,7 @@
 from app.model.enums import MenuType
 from app.model.view_state import ViewState, ViewType, ViewMode
-from app.views.button_interface import ButtonInterface
+from app.service.broadcast_service import EventType
+from app.views.common.button_interface import ButtonInterface
 from app.views.script import ScriptView
 
 
@@ -12,13 +13,13 @@ class DetailsButton(ButtonInterface):
 
     def action(self):
         self.view_state.deactivate_view()
+        self.view_state.data_node.deactivate_node()
         details_view_state = ScriptView(
             parent=self.view_state,
             view_type=ViewType.SCRIPT_DETAILS,
             view_mode=self.view_state.view_mode,
             source=self.view_state.data_node.get_selected(),
         )
-        details_view_state.activate_view()
         self.view_state.child = details_view_state
 
     def condition(self):

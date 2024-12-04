@@ -1,7 +1,7 @@
 from app.model.node import Node
 from app.model.enums import MenuType
 from app.model.view_state import ViewState, ViewMode
-from app.views.button_interface import ButtonInterface
+from app.views.common.button_interface import ButtonInterface
 
 
 class DiscardButton(ButtonInterface):

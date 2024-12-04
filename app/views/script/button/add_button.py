@@ -2,7 +2,7 @@ from app.model.node import Node
 from app.model.enums import MenuType
 from app.model.step import Step
 from app.model.view_state import ViewState, ViewType, ViewMode
-from app.views.button_interface import ButtonInterface
+from app.views.common.button_interface import ButtonInterface
 from app.views.step.stepview import StepView
 
 

@@ -39,10 +39,7 @@ class BroadcasterService:
                     listener.object.handle_event()
                 if event_name is EventType.MENU_NAVIGATION:
                     listener.object.handle_event(args[0])
-                if event_name is EventType.DATA_NAVIGATION:
+                if event_name is EventType.DATA_NAVIGATION or event_name is EventType.USER_TYPING:
                     listener.object.handle_event(args[0])
                 if event_name is EventType.ENTER_PRESS:
                     listener.object.handle_event()
-                if event_name is EventType.USER_TYPING:
-                    asd = self.listeners.index(listener)
-                    listener.object.handle_event(args[0])

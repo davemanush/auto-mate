@@ -1,7 +1,8 @@
 
 from app.model.enums import MenuType
+from app.model.node import Node
 from app.model.view_state import ViewState, ViewMode
-from app.views.button_interface import ButtonInterface
+from app.views.common.button_interface import ButtonInterface
 
 
 class SaveButton(ButtonInterface):
@@ -14,7 +15,7 @@ class SaveButton(ButtonInterface):
         self.view_state.data_node.clear_validation_errors()
         error_found = False
         for data_node in self.view_state.data_node.nodes:
-            if isinstance(data_node, Node) and not data_node.data_type.get_data().is_read_only() and not data_node.data_type.validate(data_node.wrapper):
+            if data_node.data_type.get_data().is_read_only() and not data_node.data_type.validate(data_node.wrapper):
                 error_found = True
                 data_node.set_validation_error(data_node.data_type.validation_error_message + " - Value: " + data_node.wrapper)
         if error_found:

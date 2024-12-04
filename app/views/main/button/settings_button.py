@@ -1,6 +1,6 @@
 from app.model.enums import MenuType
 from app.model.view_state import ViewState, ViewMode
-from app.views.button_interface import ButtonInterface
+from app.views.common.button_interface import ButtonInterface
 
 class SettingsButton(ButtonInterface):
     def __init__(self, view_state: ViewState):

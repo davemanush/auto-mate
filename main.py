@@ -1,6 +1,7 @@
 import os
 
 from app.service import DependencyContainer, InteractionService
+from app.service.broadcast_service import EventType
 from app.views.main import MainView
 
 def start_app():

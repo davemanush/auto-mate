@@ -1,7 +1,5 @@
 from typing import List
 
-from colorama import Fore, Back, Style
-
 from app.model.menu.menu_bar import MenuBar
 from app.model.menu.menu_option import MenuOption
 from app.model.view_state import ViewState, ViewType, ViewMode
@@ -39,6 +37,8 @@ class StepView(ViewState):
             source=source)
         self.menu = MenuBar(menu_list=self.__define_buttons(), parent=self)
         self._register_listener(EventType.RENDER, self)
+        self.activate_view()
+        self.data_node.nodes[0].select()
         self._broadcast(EventType.RENDER)
 
     def handle_event(self):
@@ -47,13 +47,7 @@ class StepView(ViewState):
             self.render()
 
     def render(self):
-        max_lengths = self._calculate_max_lengths(self.data_node.virtual)
-        script_table_left_patting = int(len(max(self.headers_to_fields_steps.keys(), key=len)))
-        self._render()
-        print(Fore.BLACK + Back.WHITE + "    | Step details".ljust(150) + Style.RESET_ALL, end='\n')
-        print(f'{Fore.BLACK + Back.WHITE}    {Style.RESET_ALL}| {"Attribute name".ljust(script_table_left_patting)} | Value', end='\n')
-        [item.render(script_table_left_patting, int(max_lengths['step']['sum']/2)) for item in self.data_node.nodes if
-         isinstance(item, DataNode)]
+        self.render_service.render(self)
 
     def __define_buttons(self) -> List[MenuOption]:
         return [

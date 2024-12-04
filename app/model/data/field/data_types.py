@@ -24,7 +24,7 @@ class DataTypeData:
     def is_in_list(self):
         return self.show_in_list
 
-
+## TODO REFACTOR: Remove the enum part and make it a list of objects, also add if it can be a step or a script, since from the settings we will be able to add mode fields
 class DataType(Enum):
     ID = (DataTypeData(name="entry_id", display_name="Entity ID", read_only=True, show_in_details=True, show_in_list=False), is_valid_uuid, "UUID format is not valid")
     PARENT_ID = (DataTypeData(name="parent_id", display_name="Script ID", read_only=True, show_in_details=False, show_in_list=False), is_valid_uuid, "UUID format is not valid")
@@ -35,7 +35,7 @@ class DataType(Enum):
     DELAY = (DataTypeData(name="delay", display_name="Delay", read_only=False, show_in_details=True, show_in_list=True), is_valid_number, "Not a valid number", delay_render)
     DELAY_TYPE = (DataTypeData(name="delay_type", display_name="Delay type", read_only=False, show_in_details=True, show_in_list=True), is_valid_delay_type, "Delay type is not valid")
     LAST_UPDATE_DATETIME = (DataTypeData(name="last_update_datetime", display_name="Last updated", read_only=True, show_in_details=False, show_in_list=True), is_valid_datetime, "Datetime is not valid", datetime_render)
-    LAST_RUN_DATETIME = (DataTypeData(name="last_run_datetime", display_name="Last updated", read_only=True, show_in_details=False, show_in_list=True), is_valid_datetime, "Datetime is not valid", datetime_render)
+    LAST_RUN_DATETIME = (DataTypeData(name="last_run_datetime", display_name="Last ran", read_only=True, show_in_details=False, show_in_list=True), is_valid_datetime, "Datetime is not valid", datetime_render)
     CREATED_DATETIME = (DataTypeData(name="created_datetime", display_name="Created", read_only=True, show_in_details=True, show_in_list=False), is_valid_datetime, "Datetime is not valid", datetime_render)
 
     def __init__(self, data, data_validator, error_message="", render_function=default_render):
