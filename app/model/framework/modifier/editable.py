@@ -30,6 +30,7 @@ class Editable(Deletable, Creatable, Errorable):
     def is_edited(self):
         if isinstance(self.source, str):
             return self.virtual != self.source
+        return False
 
     def is_new(self):
         return self.new

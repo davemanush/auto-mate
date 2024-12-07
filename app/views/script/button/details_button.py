@@ -24,7 +24,7 @@ class DetailsButton(ButtonInterface):
 
     def condition(self):
         return self.view_state.active and self.view_state.view_mode in self.view_modes \
-            and isinstance(self.view_state.data_node.get_selected(), Node)
+            and not self.view_state.data_node.get_selected().is_leaf()
 
     def show(self):
         if self.view_state.view_mode is ViewMode.VIEW:

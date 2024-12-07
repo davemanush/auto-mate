@@ -28,10 +28,9 @@ class DiscardButton(ButtonInterface):
 
     def condition(self):
         return  self.view_state.active and self.view_state.view_mode in self.view_modes \
-                and (
-                        any([isinstance(item, Node) and item.is_edited() for item in self.view_state.data_node.virtual])
-                        or any([isinstance(item, Node) and item.is_edited() or item.is_deleted() or item.is_created() for item in self.view_state.data_node.virtual])
-                    )
+                and (self.view_state.data_node.is_node_edited()
+                     or self.view_state.data_node.has_node_deleted()
+                     or self.view_state.data_node.has_node_created())
 
     def show(self):
         return self.get_type().update_text("script")

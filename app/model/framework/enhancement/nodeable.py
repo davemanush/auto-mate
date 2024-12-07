@@ -32,6 +32,18 @@ class Nodeable(Editable, Broadcastable, Interactable):
                 return True
         return self.is_edited()
 
+    def has_node_deleted(self):
+        for node in self.nodes:
+            if self.is_leaf() and node.has_node_created():
+                return True
+        return self.is_deleted()
+
+    def has_node_created(self):
+        for node in self.nodes:
+            if self.is_leaf() and node.has_node_created():
+                return True
+        return self.is_created()
+
     def is_nodes_active(self):
         for node in self.nodes:
             if node.is_active():
